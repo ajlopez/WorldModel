@@ -6,9 +6,9 @@ exports['assert fact with one argument'] = function (test) {
     
     world.fact('cat', ['x1']);
     
-    test.ok(world.truth('cat', ['x1']));
-    test.ok(!world.truth('cat', ['x2']));
-    test.ok(!world.truth('dog', ['x1']));
+    test.ok(world.known('cat', ['x1']));
+    test.ok(!world.known('cat', ['x2']));
+    test.ok(!world.known('dog', ['x1']));
 };
 
 exports['refuse fact with no array as arguments'] = function (test) {
@@ -42,7 +42,7 @@ exports['assert fact with two arguments'] = function (test) {
     
     world.fact('name', ['x1', 'Alice']);
     
-    test.ok(world.truth('name', ['x1', 'Alice']));
-    test.ok(!world.truth('name', ['x1', 'Bob']));
-    test.ok(!world.truth('age', ['x1', 'Alice']));
+    test.ok(world.known('name', ['x1', 'Alice']));
+    test.ok(!world.known('name', ['x1', 'Bob']));
+    test.ok(!world.known('age', ['x1', 'Alice']));
 };
