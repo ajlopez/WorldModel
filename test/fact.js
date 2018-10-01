@@ -69,3 +69,13 @@ exports['retrieve facts by head'] = function (test) {
     test.equal(facts[1].arguments()[0], 'x2');
     test.equal(facts[1].arguments()[1], 'Bob');
 };
+
+exports['retrieve no facts by head'] = function (test) {
+    var world = wm.world();
+    
+    var facts = world.facts('name');
+
+    test.ok(facts);
+    test.ok(Array.isArray(facts));
+    test.equal(facts.length, 0);
+};
