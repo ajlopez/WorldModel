@@ -46,3 +46,26 @@ exports['assert fact with two arguments'] = function (test) {
     test.ok(!world.known('name', ['x1', 'Bob']));
     test.ok(!world.known('age', ['x1', 'Alice']));
 };
+
+exports['retrieve facts by head'] = function (test) {
+    var world = wm.world();
+    
+    world.fact('name', ['x1', 'Alice']);
+    world.fact('name', ['x2', 'Bob']);
+    
+    var facts = world.facts('name');
+
+    test.ok(facts);
+    test.ok(Array.isArray(facts));
+    test.equal(facts.length, 2);
+    
+    test.equal(facts[0].head(), 'name');
+    test.equal(facts[0].arguments().length, 2);
+    test.equal(facts[0].arguments()[0], 'x1');
+    test.equal(facts[0].arguments()[1], 'Alice');
+    
+    test.equal(facts[1].head(), 'name');
+    test.equal(facts[1].arguments().length, 2);
+    test.equal(facts[1].arguments()[0], 'x2');
+    test.equal(facts[1].arguments()[1], 'Bob');
+};
