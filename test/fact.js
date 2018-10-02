@@ -79,3 +79,24 @@ exports['retrieve no facts by head'] = function (test) {
     test.ok(Array.isArray(facts));
     test.equal(facts.length, 0);
 };
+
+exports['matches with one variable'] = function (test) {
+    var world = wm.world();
+    
+    world.fact('human', ['x1']);
+    world.fact('human', ['x2']);
+    
+    var matches = world.matches('human', ['X']);
+
+    test.ok(matches);
+    test.ok(Array.isArray(matches));
+    test.equal(matches.length, 2);
+    
+    test.equal(matches[0].fact.head(), 'human');
+    test.deepEqual(matches[0].fact.arguments(), ['x1']);
+    test.deepEqual(matches[0].context, { X: 'x1' });
+    
+    test.equal(matches[1].fact.head(), 'human');
+    test.deepEqual(matches[1].fact.arguments(), ['x2']);
+    test.deepEqual(matches[1].context, { X: 'x2' });
+};
