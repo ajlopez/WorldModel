@@ -100,3 +100,24 @@ exports['matches with one variable'] = function (test) {
     test.deepEqual(matches[1].fact.arguments(), ['x2']);
     test.deepEqual(matches[1].context, { X: 'x2' });
 };
+
+exports['matches with two variables'] = function (test) {
+    var world = wm.world();
+    
+    world.fact('name', ['x1', 'Alice']);
+    world.fact('name', ['x2', 'Bob']);
+    
+    var matches = world.matches('name', ['X', 'Y']);
+
+    test.ok(matches);
+    test.ok(Array.isArray(matches));
+    test.equal(matches.length, 2);
+    
+    test.equal(matches[0].fact.head(), 'name');
+    test.deepEqual(matches[0].fact.arguments(), ['x1', 'Alice']);
+    test.deepEqual(matches[0].context, { X: 'x1', Y: 'Alice' });
+    
+    test.equal(matches[1].fact.head(), 'name');
+    test.deepEqual(matches[1].fact.arguments(), ['x2', 'Bob']);
+    test.deepEqual(matches[1].context, { X: 'x2', Y: 'Bob' });
+};
