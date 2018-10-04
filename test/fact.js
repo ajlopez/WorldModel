@@ -138,3 +138,20 @@ exports['matches with one variable over facts with two arguments'] = function (t
     test.deepEqual(matches[0].fact.arguments(), ['x1', 'Alice']);
     test.deepEqual(matches[0].context, { Y: 'Alice' });
 };
+
+exports['matches with one repeated variable'] = function (test) {
+    var world = wm.world();
+    
+    world.fact('friend', ['x1', 'x1']);
+    world.fact('friend', ['x2', 'x1']);
+    
+    var matches = world.matches('friend', ['X', 'X']);
+
+    test.ok(matches);
+    test.ok(Array.isArray(matches));
+    test.equal(matches.length, 1);
+    
+    test.equal(matches[0].fact.head(), 'friend');
+    test.deepEqual(matches[0].fact.arguments(), ['x1', 'x1']);
+    test.deepEqual(matches[0].context, { X: 'x1' });
+};
