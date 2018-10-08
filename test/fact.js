@@ -155,3 +155,13 @@ exports['matches with one repeated variable'] = function (test) {
     test.deepEqual(matches[0].fact.arguments(), ['x1', 'x1']);
     test.deepEqual(matches[0].context, { X: 'x1' });
 };
+
+exports['fact matches fact'] = function (test) {
+    var fact1 = wm.fact('name', [ 'X', 'Adam' ]);
+    var fact2 = wm.fact('name', [ 'h1', 'Adam' ]);
+    
+    var context = fact1.matches(fact2);
+    
+    test.ok(context);
+    test.deepEqual(context, { X: 'h1' });
+}
